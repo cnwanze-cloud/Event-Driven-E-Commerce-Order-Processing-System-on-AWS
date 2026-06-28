@@ -1,0 +1,23 @@
+Notification-Service-Role
+
+1. AmazonSNSFullAccess
+
+2. AWSLambdaBasicExecutionRole
+
+3. AWSLambdaTracerAccessExecutionRole
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+4. AWSXRayDaemonWriteAccess

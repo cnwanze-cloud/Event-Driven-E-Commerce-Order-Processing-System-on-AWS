@@ -1,0 +1,13 @@
+{
+  "detail-type": "OrderCreated",
+  "detail": {
+    "orderId": "TEST-ORDER-001",
+    "customerId": "C001",
+    "items": [
+      {
+        "productId": "P100",
+        "quantity": 2
+      }
+    ]
+  }
+}

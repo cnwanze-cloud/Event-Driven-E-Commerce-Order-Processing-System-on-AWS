@@ -1,0 +1,7 @@
+{
+  "detail-type": "PaymentCompleted",
+  "detail": {
+    "orderId": "TEST-ORDER-001",
+    "customerId": "C001"
+  }
+}

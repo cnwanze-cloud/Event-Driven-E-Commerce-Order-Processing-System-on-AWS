@@ -1,0 +1,24 @@
+Inventory-Service-Role
+
+1. AmazonDynamoDBFullAccess
+
+2. AmazonEventBridgeFullAccess
+
+3. AWSLambdaBasicExecutionRole
+
+4. AWSLambdaTracerAccessExecutionRole
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+5. AWSXRayDaemonWriteAccess

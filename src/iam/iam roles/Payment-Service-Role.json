@@ -1,0 +1,270 @@
+Payment-Service-Role
+
+1. AmazonDynamoDBFullAccess
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "dynamodb:*",
+                "dax:*",
+                "application-autoscaling:DeleteScalingPolicy",
+                "application-autoscaling:DeregisterScalableTarget",
+                "application-autoscaling:DescribeScalableTargets",
+                "application-autoscaling:DescribeScalingActivities",
+                "application-autoscaling:DescribeScalingPolicies",
+                "application-autoscaling:PutScalingPolicy",
+                "application-autoscaling:RegisterScalableTarget",
+                "cloudwatch:DeleteAlarms",
+                "cloudwatch:DescribeAlarmHistory",
+                "cloudwatch:DescribeAlarms",
+                "cloudwatch:DescribeAlarmsForMetric",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics",
+                "cloudwatch:PutMetricAlarm",
+                "cloudwatch:GetMetricData",
+                "datapipeline:ActivatePipeline",
+                "datapipeline:CreatePipeline",
+                "datapipeline:DeletePipeline",
+                "datapipeline:DescribeObjects",
+                "datapipeline:DescribePipelines",
+                "datapipeline:GetPipelineDefinition",
+                "datapipeline:ListPipelines",
+                "datapipeline:PutPipelineDefinition",
+                "datapipeline:QueryObjects",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "iam:GetRole",
+                "iam:ListRoles",
+                "kms:DescribeKey",
+                "kms:ListAliases",
+                "sns:CreateTopic",
+                "sns:DeleteTopic",
+                "sns:ListSubscriptions",
+                "sns:ListSubscriptionsByTopic",
+                "sns:ListTopics",
+                "sns:Subscribe",
+                "sns:Unsubscribe",
+                "sns:SetTopicAttributes",
+                "lambda:CreateFunction",
+                "lambda:ListFunctions",
+                "lambda:ListEventSourceMappings",
+                "lambda:CreateEventSourceMapping",
+                "lambda:DeleteEventSourceMapping",
+                "lambda:GetFunctionConfiguration",
+                "lambda:DeleteFunction",
+                "resource-groups:ListGroups",
+                "resource-groups:ListGroupResources",
+                "resource-groups:GetGroup",
+                "resource-groups:GetGroupQuery",
+                "resource-groups:DeleteGroup",
+                "resource-groups:CreateGroup",
+                "tag:GetResources",
+                "kinesis:ListStreams",
+                "kinesis:DescribeStream",
+                "kinesis:DescribeStreamSummary"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "cloudwatch:GetInsightRuleReport",
+            "Effect": "Allow",
+            "Resource": "arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*"
+        },
+        {
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Effect": "Allow",
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": [
+                        "application-autoscaling.amazonaws.com",
+                        "application-autoscaling.amazonaws.com.cn",
+                        "dax.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "replication.dynamodb.amazonaws.com",
+                        "dax.amazonaws.com",
+                        "dynamodb.application-autoscaling.amazonaws.com",
+                        "contributorinsights.dynamodb.amazonaws.com",
+                        "kinesisreplication.dynamodb.amazonaws.com"
+                    ]
+                }
+            }
+        }
+    ]
+}
+
+
+2. AmazonEventBridgeFullAccess
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "EventBridgeActions",
+            "Effect": "Allow",
+            "Action": [
+                "events:*",
+                "schemas:*",
+                "scheduler:*",
+                "pipes:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAMCreateServiceLinkedRoleForApiDestinations",
+            "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "arn:aws:iam::*:role/aws-service-role/apidestinations.events.amazonaws.com/AWSServiceRoleForAmazonEventBridgeApiDestinations",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": "apidestinations.events.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "IAMCreateServiceLinkedRoleForAmazonEventBridgeSchemas",
+            "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "arn:aws:iam::*:role/aws-service-role/schemas.amazonaws.com/AWSServiceRoleForSchemas",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": "schemas.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "SecretsManagerAccessForApiDestinations",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:CreateSecret",
+                "secretsmanager:UpdateSecret",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:PutSecretValue"
+            ],
+            "Resource": "arn:aws:secretsmanager:*:*:secret:events!*"
+        },
+        {
+            "Sid": "IAMPassRoleAccessForEventBridge",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::*:role/*",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": "events.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "IAMPassRoleAccessForScheduler",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::*:role/*",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": "scheduler.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "IAMPassRoleAccessForPipes",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::*:role/*",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": "pipes.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
+
+3. AWSLambdaBasicExecutionRole
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+4. AWSLambdaTracerAccessExecutionRole
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+
+5. AWSXRayDaemonWriteAccess
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AWSXRayDaemonWriteAccess",
+            "Effect": "Allow",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+
+6. LambdaSQSTriggerPolicy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes"
+            ],
+            "Resource": "arn:aws:sqs:eu-west-2:021655151277:PaymentQueue"
+        }
+    ]
+}
