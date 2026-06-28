@@ -1,0 +1,144 @@
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# ==========================================
+# Terraform
+# ==========================================
+
+# Local Terraform directories
+.terraform/
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive variable files
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Lock info
+.terraform.tfstate.lock.info
+
+# CLI configuration
+.terraformrc
+terraform.rc
+
+# ==========================================
+# AWS
+# ==========================================
+
+.aws/
+
+# SAM
+.aws-sam/
+
+# Serverless Framework
+.serverless/
+
+# LocalStack
+.localstack/
+
+# ==========================================
+# Lambda Deployment Packages
+# ==========================================
+
+*.zip
+
+lambda_function.zip
+deployment.zip
+package.zip
+
+# ==========================================
+# Environment Variables
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Logs
+# ==========================================
+
+*.log
+logs/
+
+# ==========================================
+# Temporary Files
+# ==========================================
+
+*.tmp
+*.bak
+*.cache
+
+# ==========================================
+# Coverage Reports
+# ==========================================
+
+coverage.xml
+
+# ==========================================
+# Jupyter Notebooks
+# ==========================================
+
+.ipynb_checkpoints/
+
+# ==========================================
+# PyCharm
+# ==========================================
+
+.idea/
+
+# ==========================================
+# VS Code Workspace
+# ==========================================
+
+*.code-workspace
