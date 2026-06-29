@@ -64,39 +64,18 @@ event-driven-ecommerce/
 ├── docs/
 │   ├── architecture.png
 │   ├── screenshots/
-│   ├── api-documentation.md
-│   └── sequence-diagrams.md
 │
-├── infrastructure/
-│   └── terraform/
-│       ├── main.tf
-│       ├── variables.tf
-│       ├── outputs.tf
-│       ├── iam.tf
-│       ├── lambda.tf
-│       ├── dynamodb.tf
-│       ├── eventbridge.tf
-│       ├── sqs.tf
-│       ├── sns.tf
-│       └── cloudwatch.tf
 │
 ├── services/
-│   ├── orders/
-│   │   ├── lambda_function.py
-│   │   └── requirements.txt
-│   ├── payments/
-│   │   └── lambda_function.py
-│   ├── inventory/
-│   │   └── lambda_function.py
-│   └── notifications/
-│       └── lambda_function.py
-│
-├── tests/
-├── postman/
-├── diagrams/
-├── README.md
-└── .github/
-    └── workflows/
+    ├── orders/
+    │   ├── lambda_function.py
+    │   └── requirements.txt
+    ├── payments/
+    │   └── lambda_function.py
+    ├── inventory/
+    │   └── lambda_function.py
+    └── notifications/
+       └── lambda_function.py
 ```
 
 ---
